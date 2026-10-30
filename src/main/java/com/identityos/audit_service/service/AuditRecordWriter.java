@@ -38,9 +38,11 @@ public class AuditRecordWriter {
     ServerOrigin origin = ServerOrigin.from(payload.requiredString("origin"));
     try {
       switch (origin) {
+        case CLIENT_APPLICATION -> writeServiceAudit(payload, "client-application");
         case ONBOARDING_AND_IDENTITY_SERVICE ->
             writeServiceAudit(payload, "onboarding-and-identity-service");
         case CMS_SERVICE -> writeServiceAudit(payload, "cms-service");
+        case CONSENT_MANAGEMENT_SERVICE -> writeServiceAudit(payload, "consent-management-service");
       }
     } catch (DuplicateKeyException ignored) {
       // Duplicate audit IDs are treated as idempotent retries from RabbitMQ.
@@ -102,6 +104,11 @@ public class AuditRecordWriter {
     String table = table(tableName);
     return jdbcTemplate.queryForList(
         "select * from " + table + " order by occurred_at desc limit ?", limit);
+  }
+  public List<Map<String,Object>> findForApplication(String organization,String application,int limit) {
+    return jdbcTemplate.queryForList("select id,origin,service_name,actor_user_id,action,entity_id,status,metadata,occurred_at from "
+        +table(properties.getTables().getRecords())+" where organization_id=? and application_id=? order by occurred_at desc limit ?",
+        organization,application,Math.max(1,Math.min(limit,100)));
   }
 
   public String table(String tableName) {

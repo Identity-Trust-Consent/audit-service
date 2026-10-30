@@ -30,7 +30,7 @@ mvn spring-boot:run
 The service uses these defaults:
 
 ```text
-PostgreSQL: jdbc:postgresql://10.212.10.135:5432/auditdb
+PostgreSQL: jdbc:postgresql://10.212.13.208:5432/auditdb
 RabbitMQ: localhost:5672
 HTTP: http://localhost:8086
 ```

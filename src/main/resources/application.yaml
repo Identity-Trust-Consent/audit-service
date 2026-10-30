@@ -2,7 +2,7 @@ spring:
   application:
     name: audit-service
   datasource:
-    url: ${DB_URL:jdbc:postgresql://${DB_HOST:10.212.10.135}:${DB_PORT:5432}/${DB_NAME:auditdb}}
+    url: ${DB_URL:jdbc:postgresql://${DB_HOST:10.212.13.208}:${DB_PORT:5432}/${DB_NAME:auditdb}}
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:Welcome@123}
     driver-class-name: org.postgresql.Driver

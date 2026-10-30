@@ -3,8 +3,10 @@ package com.identityos.audit_service.model;
 import java.util.Arrays;
 
 public enum ServerOrigin {
+  CLIENT_APPLICATION("client-application"),
   ONBOARDING_AND_IDENTITY_SERVICE("onboarding-and-identity-service"),
-  CMS_SERVICE("cms-service");
+  CMS_SERVICE("cms-service"),
+  CONSENT_MANAGEMENT_SERVICE("consent-management-service");
 
   private final String value;
 
